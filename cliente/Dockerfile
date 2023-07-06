@@ -4,7 +4,14 @@ FROM ubuntu:latest
 RUN apt update -y
 RUN apt upgrade -y
 
-RUN apt install apache2 php php-json php-intl php-xml php-mbstring php-imap nano -y
+RUN apt install apache2 -y 
+RUN apt install php -y
+RUN apt install php-json -y
+RUN apt install php-intl -y
+RUN apt install php-xml -y
+RUN apt install php-mbstring -y 
+RUN apt install php-imap -y
+RUN apt install nano -y
 
 RUN mkdir -p /var/www/html/rainloop && \
     wget -qO- https://www.rainloop.net/repository/webmail/rainloop-community-latest.zip | \
