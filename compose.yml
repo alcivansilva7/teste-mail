@@ -1,0 +1,20 @@
+services:
+  postfix:
+    build:
+      context: ./email
+      dockerfile: Dockerfile
+    image: postfix
+    container_name: postfix
+    ports:
+      - "25:25/tcp"
+      - "587:587/tcp"
+      - "110:110/tcp"
+      - "143:143/tcp"
+  cliente:
+      build:
+        context: ./cliente
+        dockerfile: Dockerfile
+      image: cliente
+      container_name: cliente
+      ports:
+        - "80:80/tcp"
