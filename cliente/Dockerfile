@@ -1,21 +1,15 @@
-FROM ubuntu:latest
+FROM debian:latest
+
 
 
 RUN apt update -y
 RUN apt upgrade -y
 
-RUN apt install apache2 -y 
-RUN apt install php -y
-RUN apt install php-json -y
-RUN apt install php-intl -y
-RUN apt install php-xml -y
-RUN apt install php-mbstring -y 
-RUN apt install php-imap -y
-RUN apt install nano -y
+RUN apt install apache2 php php-json php-intl php-xml php-mbstring php-imap libapache2-mod-php php-curl wget unzip nano -y
 
-RUN mkdir -p /var/www/html/rainloop && \
-    wget -qO- https://www.rainloop.net/repository/webmail/rainloop-community-latest.zip | \
-    unzip -q -d /var/www/html/rainloop -
+RUN mkdir -p /var/www/html/rainloop
+COPY rainloop-latest.zip /var/www/html/rainloop
+RUN unzip /var/www/html/rainloop/rainloop-latest.zip -d /var/www/html/rainloop
 
 RUN chown -R www-data:www-data /var/www/html/rainloop && \
     chmod -R 755 /var/www/html/rainloop
