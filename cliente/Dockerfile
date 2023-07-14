@@ -1,23 +1,22 @@
 FROM debian:latest
+WORKDIR /app
 
 
+RUN apt update -y &&\
+apt upgrade -y
 
-RUN apt update -y
-RUN apt upgrade -y
+RUN apt install apache2 php php-json php-intl php-xml \
+php-mbstring php-imap libapache2-mod-php php-curl wget unzip nano -y
 
-RUN apt install apache2 php php-json php-intl php-xml php-mbstring php-imap libapache2-mod-php php-curl wget unzip nano -y
 
-RUN mkdir -p /var/www/html/rainloop
-COPY rainloop-latest.zip /var/www/html/rainloop
-RUN unzip /var/www/html/rainloop/rainloop-latest.zip -d /var/www/html/rainloop
+RUN wget https://www.rainloop.net/repository/webmail/rainloop-latest.zip
+RUN rm /var/www/html/index.html
+RUN unzip rainloop-latest.zip -d /var/www/html/
 
-RUN chown -R www-data:www-data /var/www/html/rainloop && \
-    chmod -R 755 /var/www/html/rainloop
 
-#RUN apt nano -y
-#RUN ln -s /etc/squirrelmail/apache.conf /etc/apache2/conf-enable/squirrelmail.conf
+RUN chown -R www-data:www-data /var/www/html/ && \
+chmod -R 755 /var/www/html/
 
 EXPOSE 80
 
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
-#COPY client.sh /etc/init.d
