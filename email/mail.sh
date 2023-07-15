@@ -1,4 +1,4 @@
 #!/bin/bash
 
-service dovecot start
-/etc/init.d/postfix start-fg
+useradd -c 'alcivan' -m -s /bin/false alcivan
+echo "alcivan:123456"|chpasswd
